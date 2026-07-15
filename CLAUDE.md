@@ -24,7 +24,7 @@ La app debe comportarse como una aplicación web real, reemplazando las limitaci
 del entorno (sin backend) por las herramientas vistas en el curso (DOM, eventos, Fetch, JSON,
 librerías externas).
 
-- **Temática del simulador:** _(a definir — ver checklist Fase 0)_
+- **Temática del simulador:** Tienda de videojuegos de PlayStation 2 (ecommerce retro)
 - **Repositorio:** _(pegar link cuando esté creado)_
 - **Entregable final:** Google Slides _(link cuando esté)_
 
@@ -77,11 +77,11 @@ de código. Reglas de colaboración:
 ## 5. Checklist de progreso
 
 ### Fase 0 — Definición y setup
-- [ ] Definir la **temática** del simulador (proceso comercial/profesional concreto)
-- [ ] Mapear el **flujo de negocio** completo (pantallas/estados de inicio → fin)
+- [x] Definir la **temática** del simulador → Tienda de videojuegos de PS2 (ecommerce retro)
+- [x] Mapear el **flujo de negocio** completo → Catálogo → Filtrar → Carrito → Modificar → Total → Checkout
 - [ ] Crear el **repositorio** en GitHub
-- [ ] Definir **estructura de carpetas** (ej.: `index.html`, `/css`, `/js`, `/data`)
-- [ ] `README.md` inicial con descripción breve
+- [x] Definir **estructura de carpetas** → `index.html`, `/css`, `/js`, `/data` (creada)
+- [x] `README.md` inicial con descripción breve
 
 ### Fase 1 — Estructura base (HTML + CSS)
 - [ ] Maquetar las **pantallas/estados clave** del flujo
@@ -129,4 +129,10 @@ de código. Reglas de colaboración:
 > Espacio para registrar decisiones de diseño, dudas pendientes y por qué se eligió cada cosa.
 > (Ej.: "Se eligió la librería X para Y porque…").
 
--
+- **Temática:** Tienda de videojuegos de PS2 (ecommerce retro).
+- **Alcance:** circuito completo (catálogo → filtros → carrito → modificar → total → checkout).
+- **Librería externa:** SweetAlert2 — para confirmaciones/notificaciones y reemplazar `alert`/`confirm`.
+- **Persistencia:** carrito guardado en `localStorage` (sobrevive al F5, con `JSON.stringify`/`parse`).
+- **Servidor de desarrollo:** Live Server de VS Code (para que `fetch` funcione vía `http://`, no `file://`).
+- **Sin backend:** la "base de datos" es `data/juegos.json`, leído con `fetch`.
+- **Modelo de datos (cada juego):** `id`, `titulo`, `genero`, `precio`, `stock`, `imagen`, `anio`.
