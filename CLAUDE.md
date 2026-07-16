@@ -136,3 +136,4 @@ de código. Reglas de colaboración:
 - **Servidor de desarrollo:** Live Server de VS Code (para que `fetch` funcione vía `http://`, no `file://`).
 - **Sin backend:** la "base de datos" es `data/juegos.json`, leído con `fetch`.
 - **Modelo de datos (cada juego):** `id`, `titulo`, `genero`, `precio`, `stock`, `imagen`, `anio`.
+- **Arquitectura de navegación:** SPA de una sola página. `<header>` fijo (nav) + `<main>` con varias `<section>` (catálogo, carrito, etc.); el JS muestra/oculta secciones vía `classList` según el nav clickeado. Sin cambiar de archivo HTML.
