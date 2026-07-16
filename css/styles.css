@@ -1,0 +1,13 @@
+:root{
+    --clr-main: black;
+    --clr-white: #e2e2e2;
+    --clr-gray: grey;
+}
+
+ul{
+    list-style-type: none;
+}
+
+a{
+    text-decoration:none;
+}
