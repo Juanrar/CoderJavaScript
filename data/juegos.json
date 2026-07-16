@@ -1,0 +1,112 @@
+[
+  {
+    "id": "ps2-001",
+    "titulo": "Grand Theft Auto: San Andreas",
+    "categoria": "Acción / Aventura / Mundo Abierto",
+    "precio": 19.99,
+    "stock": 15,
+    "descripcion": "El legendario juego de mundo abierto de Rockstar Games. Explora el estado de San Andreas en la piel de Carl Johnson en una épica historia de bandas, traición y redención.",
+    "desarrollador": "Rockstar North",
+    "año_lanzamiento": 2004,
+    "imagen_url": "https://example.com/images/gta-san-andreas.jpg"
+  },
+  {
+    "id": "ps2-002",
+    "titulo": "Resident Evil 4",
+    "categoria": "Survival Horror / Acción",
+    "precio": 17.99,
+    "stock": 10,
+    "descripcion": "Únete a Leon S. Kennedy en una misión de rescate en un recóndito pueblo europeo plagado de una temible amenaza biológica. Un hito en los juegos de acción en tercera persona.",
+    "desarrollador": "Capcom",
+    "año_lanzamiento": 2005,
+    "imagen_url": "https://example.com/images/resident-evil-4.jpg"
+  },
+  {
+    "id": "ps2-003",
+    "titulo": "Shadow of the Colossus",
+    "categoria": "Aventura / Fantasía",
+    "precio": 22.50,
+    "stock": 8,
+    "descripcion": "Una obra maestra del Team Ico. Viaja a través de tierras desoladas para derrotar a dieciséis gigantescos colosos con el fin de devolverle la vida a una joven.",
+    "desarrollador": "Team Ico",
+    "año_lanzamiento": 2005,
+    "imagen_url": "https://example.com/images/shadow-colossus.jpg"
+  },
+  {
+    "id": "ps2-004",
+    "titulo": "God of War II",
+    "categoria": "Acción / Hack and Slash",
+    "precio": 18.50,
+    "stock": 12,
+    "descripcion": "Kratos desafía a los mismísimos dioses del Olimpo en su búsqueda por cambiar su destino en esta espectacular secuela llena de acción brutal y mitología griega.",
+    "desarrollador": "Santa Monica Studio",
+    "año_lanzamiento": 2007,
+    "imagen_url": "https://example.com/images/god-of-war-2.jpg"
+  },
+  {
+    "id": "ps2-005",
+    "titulo": "Metal Gear Solid 3: Snake Eater",
+    "categoria": "Sigilo / Acción",
+    "precio": 21.00,
+    "stock": 7,
+    "descripcion": "En plena Guerra Fría, Naked Snake debe infiltrarse en la jungla soviética para rescatar a un científico y neutralizar una letal superarma. Origen de la legendaria saga.",
+    "desarrollador": "Konami Computer Entertainment Japan",
+    "año_lanzamiento": 2004,
+    "imagen_url": "https://example.com/images/mgs3-snake-eater.jpg"
+  },
+  {
+    "id": "ps2-006",
+    "titulo": "Silent Hill 2",
+    "categoria": "Survival Horror / Terror Psicológico",
+    "precio": 25.00,
+    "stock": 5,
+    "descripcion": "James Sunderland viaja al misterioso pueblo de Silent Hill tras recibir una carta de su esposa fallecida. Una de las narrativas de terror psicológico más aclamadas de la historia.",
+    "desarrollador": "Konami",
+    "año_lanzamiento": 2001,
+    "imagen_url": "https://example.com/images/silent-hill-2.jpg"
+  },
+  {
+    "id": "ps2-007",
+    "titulo": "Final Fantasy X",
+    "categoria": "RPG",
+    "precio": 15.99,
+    "stock": 14,
+    "descripcion": "Sigue el viaje del joven Tidus y la invocadora Yuna en su travesía por salvar el mundo de Spira del ciclo destructivo de una entidad conocida como Sinh.",
+    "desarrollador": "Square Enix",
+    "año_lanzamiento": 2001,
+    "imagen_url": "https://example.com/images/final-fantasy-x.jpg"
+  },
+  {
+    "id": "ps2-008",
+    "titulo": "Kingdom Hearts II",
+    "categoria": "Acción RPG",
+    "precio": 16.50,
+    "stock": 9,
+    "descripcion": "Sora, Donald y Goofy continúan su épica búsqueda a través de mundos mágicos de Disney y universos de Final Fantasy para detener los planes de la misteriosa Organización XIII.",
+    "desarrollador": "Square Enix",
+    "año_lanzamiento": 2005,
+    "imagen_url": "https://example.com/images/kingdom-hearts-2.jpg"
+  },
+  {
+    "id": "ps2-009",
+    "titulo": "Gran Turismo 4",
+    "categoria": "Simulación / Carreras",
+    "precio": 14.99,
+    "stock": 11,
+    "descripcion": "El simulador de conducción real definitivo para PS2. Con más de 700 coches y decenas de circuitos de todo el mundo recreados al milímetro.",
+    "desarrollador": "Polyphony Digital",
+    "año_lanzamiento": 2004,
+    "imagen_url": "https://example.com/images/gran-turismo-4.jpg"
+  },
+  {
+    "id": "ps2-010",
+    "titulo": "Devil May Cry 3: Dante's Awakening",
+    "categoria": "Acción / Hack and Slash",
+    "precio": 15.00,
+    "stock": 8,
+    "descripcion": "Una precuela que redefine la saga de Dante. Enfréntate a hordas de demonios y al propio hermano de Dante, Vergil, en combates dinámicos cargados de estilo y dificultad.",
+    "desarrollador": "Capcom",
+    "año_lanzamiento": 2005,
+    "imagen_url": "https://example.com/images/dmc3.jpg"
+  }
+]
