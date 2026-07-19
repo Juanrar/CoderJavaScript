@@ -84,9 +84,9 @@ de código. Reglas de colaboración:
 - [x] `README.md` inicial con descripción breve
 
 ### Fase 1 — Estructura base (HTML + CSS)
-- [ ] Maquetar las **pantallas/estados clave** del flujo
+- [x] Maquetar las **pantallas/estados clave** del flujo → header+nav, `<main>` con `#contenedor-producto` y `#carrito`, footer
 - [ ] Estilos base y layout
-- [ ] Verificar que la estructura HTML soporte la manipulación por DOM que viene después
+- [x] Verificar que la estructura HTML soporte la manipulación por DOM → contenedores con id/clase para render dinámico; tarjetas de muestra como andamio (borrar antes del JS)
 
 ### Fase 2 — Datos (JSON + Fetch)
 - [ ] Identificar los **arrays de objetos** del dominio
