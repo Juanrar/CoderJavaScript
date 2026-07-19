@@ -2,7 +2,7 @@
   {
     "id": "ps2-001",
     "titulo": "Grand Theft Auto: San Andreas",
-    "categorias": ["Acción", "Aventura", "Mundo Abierto"],
+    "categorias": "Mundo Abierto",
     "precio": 19.99,
     "stock": 15,
     "descripcion": "El legendario juego de mundo abierto de Rockstar Games. Explora el estado de San Andreas en la piel de Carl Johnson en una épica historia de bandas, traición y redención.",
@@ -13,7 +13,7 @@
   {
     "id": "ps2-002",
     "titulo": "Resident Evil 4",
-    "categorias": ["Survival Horror", "Acción", "Disparos"],
+    "categorias": "Horror",
     "precio": 17.99,
     "stock": 10,
     "descripcion": "Únete a Leon S. Kennedy en una misión de rescate en un recóndito pueblo europeo plagado de una temible amenaza biológica. Un hito en los juegos de acción en tercera persona.",
@@ -24,7 +24,7 @@
   {
     "id": "ps2-003",
     "titulo": "Shadow of the Colossus",
-    "categorias": ["Aventura", "Fantasía", "Rompecabezas"],
+    "categorias": "Aventura",
     "precio": 22.50,
     "stock": 8,
     "descripcion": "Una obra maestra del Team Ico. Viaja a través de tierras desoladas para derrotar a dieciséis gigantescos colosos con el fin de devolverle la vida a una joven.",
@@ -35,7 +35,7 @@
   {
     "id": "ps2-004",
     "titulo": "God of War II",
-    "categorias": ["Acción", "Hack and Slash", "Mitología"],
+    "categorias": "Acción",
     "precio": 18.50,
     "stock": 12,
     "descripcion": "Kratos desafía a los mismísimos dioses del Olimpo en su búsqueda por cambiar su destino en esta espectacular secuela llena de acción brutal y mitología griega.",
@@ -46,7 +46,7 @@
   {
     "id": "ps2-005",
     "titulo": "Metal Gear Solid 3: Snake Eater",
-    "categorias": ["Sigilo", "Acción", "Militar"],
+    "categorias": "Sigilo",
     "precio": 21.00,
     "stock": 7,
     "descripcion": "En plena Guerra Fría, Naked Snake debe infiltrarse en la jungla soviética para rescatar a un científico y neutralizar una letal superarma. Origen de la legendaria saga.",
@@ -57,7 +57,7 @@
   {
     "id": "ps2-006",
     "titulo": "Silent Hill 2",
-    "categorias": ["Survival Horror", "Terror Psicológico", "Misterio"],
+    "categorias": "Horror",
     "precio": 25.00,
     "stock": 5,
     "descripcion": "James Sunderland viaja al misterioso pueblo de Silent Hill tras recibir una carta de su esposa fallecida. Una de las narrativas de terror psicológico más aclamadas de la historia.",
@@ -68,7 +68,7 @@
   {
     "id": "ps2-007",
     "titulo": "Final Fantasy X",
-    "categorias": ["RPG", "Fantasía", "Turnos"],
+    "categorias": "RPG",
     "precio": 15.99,
     "stock": 14,
     "descripcion": "Sigue el viaje del joven Tidus y la invocadora Yuna en su travesía por salvar el mundo de Spira del ciclo destructivo de una entidad conocida como Sinh.",
@@ -79,7 +79,7 @@
   {
     "id": "ps2-008",
     "titulo": "Kingdom Hearts II",
-    "categorias": ["Acción RPG", "Fantasía", "Crossover"],
+    "categorias": "RPG",
     "precio": 16.50,
     "stock": 9,
     "descripcion": "Sora, Donald y Goofy continúan su épica búsqueda a través de mundos mágicos de Disney y universos de Final Fantasy para detener los planes de la misteriosa Organización XIII.",
@@ -90,7 +90,7 @@
   {
     "id": "ps2-009",
     "titulo": "Gran Turismo 4",
-    "categorias": ["Simulación", "Carreras", "Deportes"],
+    "categorias": "Carreras",
     "precio": 14.99,
     "stock": 11,
     "descripcion": "El simulador de conducción real definitivo para PS2. Con más de 700 coches y decenas de circuitos de todo el mundo recreados al milímetro.",
@@ -101,7 +101,7 @@
   {
     "id": "ps2-010",
     "titulo": "Devil May Cry 3: Dante's Awakening",
-    "categorias": ["Acción", "Hack and Slash", "Fantasía Oscura"],
+    "categorias": "Acción",
     "precio": 15.00,
     "stock": 8,
     "descripcion": "Una precuela que redefine la saga de Dante. Enfréntate a hordas de demonios y al propio hermano de Dante, Vergil, en combates dinámicos cargados de estilo y dificultad.",
