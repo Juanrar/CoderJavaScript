@@ -135,5 +135,7 @@ de código. Reglas de colaboración:
 - **Persistencia:** carrito guardado en `localStorage` (sobrevive al F5, con `JSON.stringify`/`parse`).
 - **Servidor de desarrollo:** Live Server de VS Code (para que `fetch` funcione vía `http://`, no `file://`).
 - **Sin backend:** la "base de datos" es `data/juegos.json`, leído con `fetch`.
-- **Modelo de datos (cada juego):** `id`, `titulo`, `genero`, `precio`, `stock`, `imagen`, `anio`.
+- **Modelo de datos (cada juego):** `id`, `titulo`, `categorias` (texto simple, una por juego), `precio`, `stock`, `descripcion`, `desarrollador`, `año_lanzamiento`, `imagen_url`.
+- **Categorías (7):** Mundo Abierto, Horror, Aventura, Acción, Sigilo, RPG, Carreras.
+- **Navegación/filtros:** sección "Todos los productos" muestra el catálogo completo; el filtrado por categoría se hace desde el header (comparación directa con `===`). Se eliminó la sección "catálogo" separada.
 - **Arquitectura de navegación:** SPA de una sola página. `<header>` fijo (nav) + `<main>` con varias `<section>` (catálogo, carrito, etc.); el JS muestra/oculta secciones vía `classList` según el nav clickeado. Sin cambiar de archivo HTML.
