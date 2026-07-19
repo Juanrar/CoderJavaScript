@@ -11,13 +11,34 @@
         <nav class="navbar">
             <div class="navbar-logo">Logo</div>
             <ul class="navbar-links">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Catalogo</a></li>
-                <li><a href="#">Carrito (0)</a></li>
+                <li><button class="boton-categoria">Todos los juegos</button></li>
+                <li><button class="boton-categoria">Acción</button></li>
+                <li><button class="boton-categoria">Aventura</button></li>
+                <li><button class="boton-categoria">Carreras</button></li>
+                <li><button class="boton-categoria">Horror</button></li>
+                <li><button class="boton-categoria">Mundo Abierto</button></li>
+                <li><button class="boton-categoria">RPG</button></li>
+                <li><button class="boton-categoria">Sigilo</button></li>
+                <li><button class="boton-carrito" >Carrito <span class="carrito-numero">0</span></button></li>
             </ul>
         </nav>
     </header>
+    <main>
+        <section id="contenedor-producto">
+            <h2>Todos los juegos</h2>
+            <div class="contenedor-juegos"></div>
+        </section>
 
+        <section id="carrito" class="oculta">
+            <h2>Tu carrito</h2>
+            <div>...items...</div>
+            <p>Total: ...</p>
+            <button>Finalizar compra</button>
+        </section>
+    </main>
+    <footer>
+        <p class="texto-footer">© 2026 Llego el mono PAPA SRA</p>
+    </footer>
     <script src="js/main.js"></script>
 </body>
 </html>
