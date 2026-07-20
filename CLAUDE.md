@@ -138,4 +138,6 @@ de código. Reglas de colaboración:
 - **Modelo de datos (cada juego):** `id`, `titulo`, `categorias` (texto simple, una por juego), `precio`, `stock`, `descripcion`, `desarrollador`, `año_lanzamiento`, `imagen_url`.
 - **Categorías (7):** Mundo Abierto, Horror, Aventura, Acción, Sigilo, RPG, Carreras.
 - **Navegación/filtros:** sección "Todos los productos" muestra el catálogo completo; el filtrado por categoría se hace desde el header (comparación directa con `===`). Se eliminó la sección "catálogo" separada.
+- **Layout de la grilla de productos:** CSS Grid en `.contenedor-juegos`.
 - **Arquitectura de navegación:** SPA de una sola página. `<header>` fijo (nav) + `<main>` con varias `<section>` (catálogo, carrito, etc.); el JS muestra/oculta secciones vía `classList` según el nav clickeado. Sin cambiar de archivo HTML.
+- **Paleta de colores:** opción A "Boot screen" (estética del arranque de la PS2). Roles: fondo principal `#0a0a14`, fondo secundario/tarjetas `#1a1a2e`, texto `#e2e2e2`, acento (hover/carrito/precio) `#0070d1`, borde `#3a3a5a`. Se centralizan en variables CSS (`:root`) y se aplican con `var(...)`. Criterio: un solo color de acento, usado con moderación.
