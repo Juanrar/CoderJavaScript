@@ -1,21 +1,24 @@
-const contenerdorProductos = document.querySelector(".grilla-juegos")
+const contenerdorProductos = document.querySelector(".grilla-juegos");
+const botonesCategorias = document.querySelector(".boton-categoria");
+let productos = [];
 
 async function traerDatos(){
     try{
         const respuesta = await fetch("./data/juegos.json");
         const datos = await respuesta.json();
-        return datos;
+        console.log(datos)
+        productos =  datos;
+
     }catch(error){
         console.log("Se produjo un error", error);
         return [];
     }
 }
 
-async function cargarProductos() {
-    const productos = await traerDatos();
+function cargarProductos() {
     productos.forEach(producto =>{
         const div = document.createElement("div");
-        div.classList.add("productoi");
+        div.classList.add("producto");
         div.innerHTML= `
             <img class="producto-imagen">
                 <div class="producto-detalles">
@@ -28,4 +31,9 @@ async function cargarProductos() {
     })
 }
 
-cargarProductos();
+async function inicio(){
+    await traerDatos();
+    cargarProductos();
+}
+
+inicio();
