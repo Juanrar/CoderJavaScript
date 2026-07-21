@@ -79,7 +79,7 @@ de código. Reglas de colaboración:
 ### Fase 0 — Definición y setup
 - [x] Definir la **temática** del simulador → Tienda de videojuegos de PS2 (ecommerce retro)
 - [x] Mapear el **flujo de negocio** completo → Catálogo → Filtrar → Carrito → Modificar → Total → Checkout
-- [ ] Crear el **repositorio** en GitHub
+- [x] Crear el **repositorio** en GitHub
 - [x] Definir **estructura de carpetas** → `index.html`, `/css`, `/js`, `/data` (creada)
 - [x] `README.md` inicial con descripción breve
 
@@ -89,10 +89,10 @@ de código. Reglas de colaboración:
 - [x] Verificar que la estructura HTML soporte la manipulación por DOM → contenedores con id/clase para render dinámico; tarjetas de muestra como andamio (borrar antes del JS)
 
 ### Fase 2 — Datos (JSON + Fetch)
-- [ ] Identificar los **arrays de objetos** del dominio
-- [ ] Externalizarlos a archivo(s) **`.json`**
-- [ ] Cargarlos con **`fetch`** (async/await o promesas)
-- [ ] Manejo de **errores** de carga (qué pasa si el fetch falla)
+- [x] Identificar los **arrays de objetos** del dominio → array de juegos (modelo definido en Notas)
+- [x] Externalizarlos a archivo(s) **`.json`** → `data/juegos.json` con 10 juegos PS2
+- [x] Cargarlos con **`fetch`** (async/await o promesas) → `traerDatos()` en `main.js` con `async/await`
+- [x] Manejo de **errores** de carga (qué pasa si el fetch falla) → `try/catch` que devuelve `[]` (pendiente: quitar el `console.log` y mostrar aviso al usuario en la UI)
 
 ### Fase 3 — Lógica del negocio
 - [ ] Implementar el **circuito completo** (de principio a fin)
@@ -141,3 +141,5 @@ de código. Reglas de colaboración:
 - **Layout de la grilla de productos:** CSS Grid en `.contenedor-juegos`.
 - **Arquitectura de navegación:** SPA de una sola página. `<header>` fijo (nav) + `<main>` con varias `<section>` (catálogo, carrito, etc.); el JS muestra/oculta secciones vía `classList` según el nav clickeado. Sin cambiar de archivo HTML.
 - **Paleta de colores:** opción A "Boot screen" (estética del arranque de la PS2). Roles: fondo principal `#0a0a14`, fondo secundario/tarjetas `#1a1a2e`, texto `#e2e2e2`, acento (hover/carrito/precio) `#0070d1`, borde `#3a3a5a`. Se centralizan en variables CSS (`:root`) y se aplican con `var(...)`. Criterio: un solo color de acento, usado con moderación.
+- **Categorías — Camino 2 (etiquetas tal cual):** el valor de categoría se guarda como etiqueta legible ("Mundo Abierto", "Acción", …) tanto en `juegos.json` como en el `data-categoria` de cada botón. Se comparan con `===`, así que deben ser **idénticos** carácter por carácter (misma tilde, mayúscula y espacio). No se usan slugs. El botón "Todos los juegos" no es una categoría: es el filtro que muestra todo el catálogo.
+- **Tipografías:** Titillium Web (texto general, en `body`) + Chakra Petch (títulos/`h2`). Se cargan vía `<link>` de Google Fonts en el `<head>`.
