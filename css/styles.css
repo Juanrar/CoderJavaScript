@@ -91,3 +91,7 @@ header{
 .producto-precio{
     color: #0070d1;
 }
+
+.producto-titulo{
+     min-height: 2.4em;
+}
