@@ -4,6 +4,7 @@ const tituloPrincipal = document.querySelector(".titulo-principal")
 let botonesAgregar = document.querySelectorAll(".boton-agregar")
 let productos = [];
 const productosCarrito = [];
+const contadorCarrito = document.querySelector(".carrito-numero");
 
 async function traerDatos(){
     try{
@@ -63,10 +64,23 @@ function agregarAlCarrito(e){
     const idProducto = e.currentTarget.id;
     const productoAgregado = productos.find(producto => producto.id === idProducto);
 
-    //if(productoEnCarrito.some(producto => producto.id === idProducto))
-
-    productosCarrito.push(productoAgregado);
-    console.log(productosCarrito);
+    if(productosCarrito.some(producto => producto.id === idProducto)){
+        //si ya exista aumentar cantidad
+        const index = productosCarrito.findIndex(producto => producto.id === idProducto);
+        productosCarrito[index].cantidad++;
+    } else{
+        //sino agregar
+        productoAgregado.cantidad = 1;
+        productosCarrito.push(productoAgregado);
+    } 
+    actualizarContadorCarrito()
+    console.log(productosCarrito)
 }
 
+function actualizarContadorCarrito(){
+    let contador = productosCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    console.log("contador reduce:", contador)
+    contadorCarrito.innerText = contador;
+    //console.log(contadorCarrito.innerText)
+}
 inicio();
