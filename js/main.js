@@ -1,7 +1,9 @@
 const contenerdorProductos = document.querySelector(".grilla-juegos");
 const botonesCategorias = document.querySelectorAll(".boton-categoria");
 const tituloPrincipal = document.querySelector(".titulo-principal")
+let botonesAgregar = document.querySelectorAll(".boton-agregar")
 let productos = [];
+const productosCarrito = [];
 
 async function traerDatos(){
     try{
@@ -31,6 +33,7 @@ function cargarProductos(productosCategoria) {
         `;
         contenerdorProductos.append(div);
     })
+    actualizarBotones();
 }
 
 async function inicio(){
@@ -46,5 +49,24 @@ botonesCategorias.forEach(boton =>{
         cargarProductos(productosCategoria);
     })
 })
+
+function actualizarBotones(){
+    botonesAgregar = document.querySelectorAll(".boton-agregar");
+
+    botonesAgregar.forEach(boton => {
+        // Funcion que hace que los botones de agregar vayan al carrito
+        boton.addEventListener("click", agregarAlCarrito);
+    })
+}
+
+function agregarAlCarrito(e){
+    const idProducto = e.currentTarget.id;
+    const productoAgregado = productos.find(producto => producto.id === idProducto);
+
+    //if(productoEnCarrito.some(producto => producto.id === idProducto))
+
+    productosCarrito.push(productoAgregado);
+    console.log(productosCarrito);
+}
 
 inicio();
