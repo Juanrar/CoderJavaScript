@@ -92,14 +92,14 @@ de código. Reglas de colaboración:
 - [x] Identificar los **arrays de objetos** del dominio → array de juegos (modelo definido en Notas)
 - [x] Externalizarlos a archivo(s) **`.json`** → `data/juegos.json` con 10 juegos PS2
 - [x] Cargarlos con **`fetch`** (async/await o promesas) → `traerDatos()` en `main.js` con `async/await`
-- [x] Manejo de **errores** de carga (qué pasa si el fetch falla) → `try/catch` que devuelve `[]` (pendiente: quitar el `console.log` y mostrar aviso al usuario en la UI)
+- [x] Manejo de **errores** de carga (qué pasa si el fetch falla) → `try/catch` implementado (pendiente: quitar los `console.log` y mostrar aviso al usuario en la UI, idealmente con SweetAlert2)
 
 ### Fase 3 — Lógica del negocio
-- [ ] Implementar el **circuito completo** (de principio a fin)
-- [ ] **Manipulación del DOM** (render dinámico de datos/estados)
-- [ ] **Eventos** que disparan las transiciones del flujo
-- [ ] Tratamiento de **casos comunes** y validaciones
-- [ ] Persistencia de estado durante la sesión (si aplica a la temática)
+- [ ] Implementar el **circuito completo** (de principio a fin) → hecho: catálogo, filtros y agregar al carrito con cantidades. Falta: **render del carrito** (lista de ítems), **total**, modificar/eliminar ítems y **checkout**.
+- [x] **Manipulación del DOM** (render dinámico de datos/estados) → `cargarProductos()` genera las tarjetas; `actualizarContadorCarrito()` refresca el número del carrito
+- [x] **Eventos** que disparan las transiciones del flujo → `click` en botones de categoría (filtrar) y en `.boton-agregar` (sumar al carrito)
+- [ ] Tratamiento de **casos comunes** y validaciones → pendiente: comparación de `id` string vs number (`===`), stock, carrito vacío
+- [ ] Persistencia de estado durante la sesión (si aplica a la temática) → pendiente: `localStorage` del carrito
 
 ### Fase 4 — Librería externa + limpieza
 - [ ] Integrar **≥1 librería JS externa** con uso visible
