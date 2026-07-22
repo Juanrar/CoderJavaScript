@@ -1,4 +1,4 @@
-const contenerdorProductos = document.querySelector(".grilla-juegos");
+const contenedorProductos = document.querySelector(".grilla-juegos");
 const botonesCategorias = document.querySelectorAll(".boton-categoria");
 const tituloPrincipal = document.querySelector(".titulo-principal")
 let botonesAgregar = document.querySelectorAll(".boton-agregar")
@@ -13,12 +13,12 @@ async function traerDatos(){
         productos =  datos;
     }catch(error){
         console.log("Se produjo un error", error);
-        return [];
+        productos = [];
     }
 }
 
 function cargarProductos(productosCategoria) {
-    contenerdorProductos.innerHTML = "";
+    contenedorProductos.innerHTML = "";
     productosCategoria.forEach(producto =>{
         // Vaciar el contenido
 
@@ -28,11 +28,11 @@ function cargarProductos(productosCategoria) {
             <img class="producto-imagen">
                 <div class="producto-detalles">
                     <h3 class="producto-titulo">${producto.titulo}</h3>
-                    <p class="producto-precio">${producto.precio}</p>
+                    <p class="producto-precio">${new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(producto.precio)}</p>
                     <button class="boton-agregar" id="${producto.id}">Agregar</button>
                 </div>
         `;
-        contenerdorProductos.append(div);
+        contenedorProductos.append(div);
     })
     actualizarBotones();
 }
@@ -63,7 +63,6 @@ function actualizarBotones(){
 function agregarAlCarrito(e){
     const idProducto = e.currentTarget.id;
     const productoAgregado = productos.find(producto => producto.id === idProducto);
-
     if(productosCarrito.some(producto => producto.id === idProducto)){
         //si ya exista aumentar cantidad
         const index = productosCarrito.findIndex(producto => producto.id === idProducto);
@@ -83,4 +82,5 @@ function actualizarContadorCarrito(){
     contadorCarrito.innerText = contador;
     //console.log(contadorCarrito.innerText)
 }
+
 inicio();
