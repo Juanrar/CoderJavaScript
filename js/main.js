@@ -52,6 +52,11 @@ async function inicio(){
 
 botonesCategorias.forEach(boton =>{
     boton.addEventListener("click",(e) =>{
+        if (contenedorCatalogo.classList.contains("oculta")){
+            contenedorCarrito.classList.add("oculta");
+            contenedorCatalogo.classList.remove("oculta");
+        }
+
         let categoria = e.target.dataset.categoria;
         tituloPrincipal.innerText = categoria != "Todos" ? categoria : "Todos los juegos";
         let productosCategoria = productos.filter(producto => producto.categorias === categoria || categoria === 'Todos');
