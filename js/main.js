@@ -8,6 +8,7 @@ let productos = [];
 
 //elementos de carrito
 const contenedorCarrito = document.querySelector("#contenedor-carrito");
+const contenedorCompras = document.querySelector(".grilla-carrito")
 const productosCarrito = [];
 const contadorCarrito = document.querySelector(".carrito-numero");
 const numeroTotal = document.querySelector(".total-numero");
@@ -98,10 +99,12 @@ function actualizarContadorCarrito(){
 botonCarrito.addEventListener("click",(e) =>{
     contenedorCarrito.classList.remove("oculta");
     contenedorCatalogo.classList.add("oculta");
+    cargarCarrito();
 })
 
 function cargarCarrito() {
     contenedorProductos.innerHTML = "";
+    contenedorCompras.innerHTML="";
     productosCarrito.forEach(producto =>{
         // Vaciar el contenido
 
@@ -114,14 +117,14 @@ function cargarCarrito() {
                     <p class="producto-precio">${new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(producto.precio)}</p>
                 </div>
         `;
-        contenedorProductos.append(div);
+        contenedorCompras.append(div);
         actualizarTotalCarrito();
     })
 }
 
 function actualizarTotalCarrito(){
     let total = productosCarrito.reduce((acc, producto) => acc + producto.precio, 0);
-    contadorCarrito.innerText = total;
+    numeroTotal.innerText = new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(total);
 }
 
 inicio();
