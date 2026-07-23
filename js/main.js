@@ -1,10 +1,18 @@
+// elementos de producto
+const contenedorCatagolo = document.querySelector("#contenedor-catalogo");
 const contenedorProductos = document.querySelector(".grilla-juegos");
 const botonesCategorias = document.querySelectorAll(".boton-categoria");
 const tituloPrincipal = document.querySelector(".titulo-principal")
 let botonesAgregar = document.querySelectorAll(".boton-agregar")
 let productos = [];
+
+//elementos de carrito
+const contenedorCarrito = document.querySelector("#contenedor-carrito");
 const productosCarrito = [];
 const contadorCarrito = document.querySelector(".carrito-numero");
+const numeroTotal = document.querySelector(".total-numero");
+const botonCarrito = document.querySelector(".boton-carrito");
+
 
 async function traerDatos(){
     try{
@@ -80,7 +88,32 @@ function actualizarContadorCarrito(){
     let contador = productosCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
     console.log("contador reduce:", contador)
     contadorCarrito.innerText = contador;
-    //console.log(contadorCarrito.innerText)
+}
+
+//botonCarrito.addEventListener("click",(e))
+
+function cargarCarrito() {
+    contenedorProductos.innerHTML = "";
+    productosCarrito.forEach(producto =>{
+        // Vaciar el contenido
+
+        const div = document.createElement("div");
+        div.classList.add("producto");
+        div.innerHTML= `
+            <img class="producto-imagen">
+                <div class="producto-detalles">
+                    <h3 class="producto-titulo">${producto.titulo}</h3>
+                    <p class="producto-precio">${new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(producto.precio)}</p>
+                </div>
+        `;
+        contenedorProductos.append(div);
+        actualizarTotalCarrito();
+    })
+}
+
+function actualizarTotalCarrito(){
+    let total = productosCarrito.reduce((acc, producto) => acc + producto.precio, 0);
+    contadorCarrito.innerText = total;
 }
 
 inicio();
