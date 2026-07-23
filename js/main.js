@@ -1,5 +1,5 @@
 // elementos de producto
-const contenedorCatagolo = document.querySelector("#contenedor-catalogo");
+const contenedorCatalogo = document.querySelector("#contenedor-catalogo");
 const contenedorProductos = document.querySelector(".grilla-juegos");
 const botonesCategorias = document.querySelectorAll(".boton-categoria");
 const tituloPrincipal = document.querySelector(".titulo-principal")
@@ -90,7 +90,10 @@ function actualizarContadorCarrito(){
     contadorCarrito.innerText = contador;
 }
 
-//botonCarrito.addEventListener("click",(e))
+botonCarrito.addEventListener("click",(e) =>{
+    contenedorCarrito.classList.remove("oculta");
+    contenedorCatalogo.classList.add("oculta");
+})
 
 function cargarCarrito() {
     contenedorProductos.innerHTML = "";
