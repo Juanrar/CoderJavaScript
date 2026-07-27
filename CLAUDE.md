@@ -84,9 +84,9 @@ de código. Reglas de colaboración:
 - [x] `README.md` inicial con descripción breve
 
 ### Fase 1 — Estructura base (HTML + CSS)
-- [x] Maquetar las **pantallas/estados clave** del flujo → header+nav, `<main>` con `#contenedor-producto` y `#carrito`, footer
-- [ ] Estilos base y layout
-- [x] Verificar que la estructura HTML soporte la manipulación por DOM → contenedores con id/clase para render dinámico; tarjetas de muestra como andamio (borrar antes del JS)
+- [x] Maquetar las **pantallas/estados clave** del flujo → header+nav, `<main>` con dos `<section>`: `#contenedor-catalogo` (con `.grilla-juegos`) y `#contenedor-carrito` (con `.grilla-carrito`, `.total-numero` y botón `.boton-finalizar`), footer
+- [~] Estilos base y layout → hay `styles.css` con reset básico, navbar (`flex`), grilla de productos (CSS Grid) y tarjeta `.producto`. **Pendiente:** centralizar la paleta en `:root` (hoy los colores están hardcodeados), unificar el color de acento (el `:hover` usa `#f5a623` naranja, no el `#0070d1` decidido) y **agregar el `<link>` de Google Fonts en el `<head>`** (el CSS ya pide Titillium Web / Chakra Petch pero no se cargan)
+- [x] Verificar que la estructura HTML soporte la manipulación por DOM → contenedores vacíos (`.grilla-juegos`, `.grilla-carrito`) listos para render dinámico; ya no hay tarjetas de muestra
 
 ### Fase 2 — Datos (JSON + Fetch)
 - [x] Identificar los **arrays de objetos** del dominio → array de juegos (modelo definido en Notas)
@@ -95,10 +95,10 @@ de código. Reglas de colaboración:
 - [x] Manejo de **errores** de carga (qué pasa si el fetch falla) → `try/catch` implementado (pendiente: quitar los `console.log` y mostrar aviso al usuario en la UI, idealmente con SweetAlert2)
 
 ### Fase 3 — Lógica del negocio
-- [ ] Implementar el **circuito completo** (de principio a fin) → hecho: catálogo, filtros y agregar al carrito con cantidades. Falta: **render del carrito** (lista de ítems), **total**, modificar/eliminar ítems y **checkout**.
-- [x] **Manipulación del DOM** (render dinámico de datos/estados) → `cargarProductos()` genera las tarjetas; `actualizarContadorCarrito()` refresca el número del carrito
-- [x] **Eventos** que disparan las transiciones del flujo → `click` en botones de categoría (filtrar) y en `.boton-agregar` (sumar al carrito)
-- [ ] Tratamiento de **casos comunes** y validaciones → pendiente: comparación de `id` string vs number (`===`), stock, carrito vacío
+- [~] Implementar el **circuito completo** (de principio a fin) → hecho: catálogo, filtros, agregar al carrito con cantidades, **render del carrito** (`cargarCarrito()`) y **total** (`actualizarTotalCarrito()`). Falta: **modificar/eliminar ítems** del carrito (+/−/borrar), mostrar la **cantidad** de cada ítem en la tarjeta del carrito y el **checkout** (el botón `.boton-finalizar` existe en el HTML pero no tiene listener)
+- [x] **Manipulación del DOM** (render dinámico de datos/estados) → `cargarProductos()` genera las tarjetas del catálogo; `cargarCarrito()` renderiza los ítems del carrito; `actualizarContadorCarrito()` refresca el número; `actualizarTotalCarrito()` refresca el total
+- [x] **Eventos** que disparan las transiciones del flujo → `click` en botones de categoría (filtrar + mostrar catálogo), en `.boton-agregar` (sumar al carrito, re-enganchado con `actualizarBotones()` tras cada render) y en `.boton-carrito` (mostrar carrito + `cargarCarrito()`)
+- [ ] Tratamiento de **casos comunes** y validaciones → **la comparación de `id` ya funciona** (ahora ambos son string: `"ps2-001"` en el JSON y en el atributo `id` del botón). Pendiente: **el total suma `precio` sin multiplicar por `cantidad`** (queda mal con cantidad > 1), control de **stock**, estado de **carrito vacío** y no usar la imagen (`imagen_url`) en las tarjetas (`<img>` sin `src`)
 - [ ] Persistencia de estado durante la sesión (si aplica a la temática) → pendiente: `localStorage` del carrito
 
 ### Fase 4 — Librería externa + limpieza
@@ -139,7 +139,9 @@ de código. Reglas de colaboración:
 - **Categorías (7):** Mundo Abierto, Horror, Aventura, Acción, Sigilo, RPG, Carreras.
 - **Navegación/filtros:** sección "Todos los productos" muestra el catálogo completo; el filtrado por categoría se hace desde el header (comparación directa con `===`). Se eliminó la sección "catálogo" separada.
 - **Layout de la grilla de productos:** CSS Grid en `.contenedor-juegos`.
-- **Arquitectura de navegación:** SPA de una sola página. `<header>` fijo (nav) + `<main>` con varias `<section>` (catálogo, carrito, etc.); el JS muestra/oculta secciones vía `classList` según el nav clickeado. Sin cambiar de archivo HTML.
-- **Paleta de colores:** opción A "Boot screen" (estética del arranque de la PS2). Roles: fondo principal `#0a0a14`, fondo secundario/tarjetas `#1a1a2e`, texto `#e2e2e2`, acento (hover/carrito/precio) `#0070d1`, borde `#3a3a5a`. Se centralizan en variables CSS (`:root`) y se aplican con `var(...)`. Criterio: un solo color de acento, usado con moderación.
+- **Arquitectura de navegación:** SPA de una sola página. `<header>` fijo (nav) + `<main>` con dos `<section>` (`#contenedor-catalogo`, `#contenedor-carrito`); el JS muestra/oculta secciones agregando/quitando la clase `.oculta` (`display:none`) según el nav clickeado. Sin cambiar de archivo HTML.
+- **Estructura de carpetas real:** `index.html` en la raíz + `/css` (`styles.css`, CSS plano, **no** SCSS) + `/js` (`main.js`) + `/data` (`juegos.json`) + `/assets` (`logo.png`). El `<script>` se carga al final del `<body>` (sin `defer`).
+- **Selectores clave (para no romper el DOM):** secciones `#contenedor-catalogo` / `#contenedor-carrito`; grillas `.grilla-juegos` / `.grilla-carrito`; título del catálogo `.titulo-principal`; filtros `.boton-categoria` (con `data-categoria`); tarjeta `.producto`; botón agregar `.boton-agregar` (su `id` = `id` del juego); contador `.carrito-numero`; total `.total-numero`; botones `.boton-carrito` y `.boton-finalizar`.
+- **Paleta de colores:** opción A "Boot screen" (estética del arranque de la PS2). Roles: fondo principal `#0a0a14`, fondo secundario/tarjetas `#1a1a2e`, texto `#e2e2e2`, acento (hover/carrito/precio) `#0070d1`, borde `#3a3a5a`. Criterio: un solo color de acento, usado con moderación. **Estado actual:** los colores están **hardcodeados** en `styles.css` (todavía sin `:root`/`var(...)`) y el `:hover` de la nav usa `#f5a623` (naranja), que **contradice** el acento único `#0070d1` → pendiente refactor.
 - **Categorías — Camino 2 (etiquetas tal cual):** el valor de categoría se guarda como etiqueta legible ("Mundo Abierto", "Acción", …) tanto en `juegos.json` como en el `data-categoria` de cada botón. Se comparan con `===`, así que deben ser **idénticos** carácter por carácter (misma tilde, mayúscula y espacio). No se usan slugs. El botón "Todos los juegos" no es una categoría: es el filtro que muestra todo el catálogo.
-- **Tipografías:** Titillium Web (texto general, en `body`) + Chakra Petch (títulos/`h2`). Se cargan vía `<link>` de Google Fonts en el `<head>`.
+- **Tipografías:** Titillium Web (texto general, en `body`) + Chakra Petch (títulos/`h2`). **Estado actual:** el CSS ya las declara en `font-family`, pero **falta el `<link>` de Google Fonts en el `<head>`** de `index.html`, así que hoy no se descargan y el navegador cae al `sans-serif` por defecto → pendiente agregar el `<link>`.
