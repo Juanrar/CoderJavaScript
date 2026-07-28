@@ -24,7 +24,6 @@ async function traerDatos(){
         const datos = await respuesta.json();
         productos =  datos;
     }catch(error){
-        console.log("Se produjo un error", error);
         productos = [];
     }
 }
@@ -114,8 +113,6 @@ function eliminarCarrito(e){
 function actualizarBotonesCarrito(){
     botonesCarritoSuma = document.querySelectorAll(".boton-sumar");
     botonCarritoResta = document.querySelectorAll(".boton-restar");
-    console.log("botoncitos:",botonCarritoResta);
-
 
     botonesCarritoSuma.forEach(boton => {
         boton.addEventListener("click", agregarCarrito);
@@ -128,7 +125,6 @@ function actualizarBotonesCarrito(){
 
 function actualizarContadorCarrito(){
     let contador = productosCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
-    console.log("contador reduce:", contador)
     contadorCarrito.innerText = contador;
 }
 
