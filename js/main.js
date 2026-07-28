@@ -82,8 +82,9 @@ function agregarAlCarrito(e){
         const index = productosCarrito.findIndex(producto => producto.id === idProducto);
         productosCarrito[index].cantidad++;
     } else{
-        productoAgregado.cantidad = 1;
-        productosCarrito.push(productoAgregado);
+        const itemCarrito = {...productoAgregado}
+        itemCarrito.cantidad = 1;
+        productosCarrito.push(itemCarrito);
     } 
     actualizarContadorCarrito()
     if(contenedorCatalogo.classList.contains("oculta")){
@@ -93,11 +94,11 @@ function agregarAlCarrito(e){
 
 function restarDelCarrito(e){
     const idProducto = e.currentTarget.id;
-    const juegoEnCatalogo = productos.find(producto => producto.id === idProducto);
+    const productosCarrito = productos.find(producto => producto.id === idProducto);
     const index = productosCarrito.findIndex(producto => producto.id === idProducto);
     productosCarrito[index].cantidad--
-    if(juegoEnCatalogo.cantidad === 0){
-        delete juegoEnCatalogo.cantidad;
+    if(productosCarrito.cantidad === 0){
+        delete productosCarrito.cantidad;
         productosCarrito.splice(index, 1);
     }
     actualizarContadorCarrito()
