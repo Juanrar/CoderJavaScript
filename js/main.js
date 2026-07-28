@@ -94,11 +94,9 @@ function agregarAlCarrito(e){
 
 function restarDelCarrito(e){
     const idProducto = e.currentTarget.id;
-    const productosCarrito = productos.find(producto => producto.id === idProducto);
     const index = productosCarrito.findIndex(producto => producto.id === idProducto);
-    productosCarrito[index].cantidad--
-    if(productosCarrito.cantidad === 0){
-        delete productosCarrito.cantidad;
+    productosCarrito[index].cantidad--;
+    if(productosCarrito[index].cantidad === 0){
         productosCarrito.splice(index, 1);
     }
     actualizarContadorCarrito()
