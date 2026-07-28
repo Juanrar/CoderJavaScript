@@ -95,10 +95,10 @@ de código. Reglas de colaboración:
 - [x] Manejo de **errores** de carga (qué pasa si el fetch falla) → `try/catch` implementado (pendiente: quitar los `console.log` y mostrar aviso al usuario en la UI, idealmente con SweetAlert2)
 
 ### Fase 3 — Lógica del negocio
-- [~] Implementar el **circuito completo** (de principio a fin) → hecho: catálogo, filtros, agregar al carrito con cantidades, **render del carrito** (`cargarCarrito()`) y **total** (`actualizarTotalCarrito()`). Falta: **modificar/eliminar ítems** del carrito (+/−/borrar), mostrar la **cantidad** de cada ítem en la tarjeta del carrito y el **checkout** (el botón `.boton-finalizar` existe en el HTML pero no tiene listener)
+- [~] Implementar el **circuito completo** (de principio a fin) → hecho: catálogo, filtros, agregar al carrito, **render del carrito** (`cargarCarrito()`), **total** (`actualizarTotalCarrito()`), **modificar cantidad** (+/− con `agregarCarrito`/`eliminarCarrito`) y **eliminar ítem** al llegar a 0 (`splice(index, 1)`). **Falta solo el checkout**: el botón `.boton-finalizar` existe en el HTML pero no tiene listener
 - [x] **Manipulación del DOM** (render dinámico de datos/estados) → `cargarProductos()` genera las tarjetas del catálogo; `cargarCarrito()` renderiza los ítems del carrito; `actualizarContadorCarrito()` refresca el número; `actualizarTotalCarrito()` refresca el total
 - [x] **Eventos** que disparan las transiciones del flujo → `click` en botones de categoría (filtrar + mostrar catálogo), en `.boton-agregar` (sumar al carrito, re-enganchado con `actualizarBotones()` tras cada render) y en `.boton-carrito` (mostrar carrito + `cargarCarrito()`)
-- [ ] Tratamiento de **casos comunes** y validaciones → **la comparación de `id` ya funciona** (ahora ambos son string: `"ps2-001"` en el JSON y en el atributo `id` del botón). Pendiente: **el total suma `precio` sin multiplicar por `cantidad`** (queda mal con cantidad > 1), control de **stock**, estado de **carrito vacío** y no usar la imagen (`imagen_url`) en las tarjetas (`<img>` sin `src`)
+- [~] Tratamiento de **casos comunes** y validaciones → resueltos: comparación de `id` (string vs string), **total ahora multiplica `precio * cantidad`**, e imagen (`imagen_url`) ya usada en `src`. Pendiente: control de **stock** (no dejar sumar más que el stock disponible) y estado de **carrito vacío** (mensaje cuando no hay ítems)
 - [ ] Persistencia de estado durante la sesión (si aplica a la temática) → pendiente: `localStorage` del carrito
 
 ### Fase 4 — Librería externa + limpieza
