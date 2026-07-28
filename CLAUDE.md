@@ -92,20 +92,20 @@ de código. Reglas de colaboración:
 - [x] Identificar los **arrays de objetos** del dominio → array de juegos (modelo definido en Notas)
 - [x] Externalizarlos a archivo(s) **`.json`** → `data/juegos.json` con 10 juegos PS2
 - [x] Cargarlos con **`fetch`** (async/await o promesas) → `traerDatos()` en `main.js` con `async/await`
-- [x] Manejo de **errores** de carga (qué pasa si el fetch falla) → `try/catch` implementado (pendiente: quitar los `console.log` y mostrar aviso al usuario en la UI, idealmente con SweetAlert2)
+- [x] Manejo de **errores** de carga (qué pasa si el fetch falla) → `try/catch` con `Swal.fire({icon:"error"})` visible para el usuario; `productos` queda como `[]` por su inicialización
 
 ### Fase 3 — Lógica del negocio
 - [x] Implementar el **circuito completo** (de principio a fin) → hecho: catálogo, filtros, agregar al carrito, **render del carrito** (`cargarCarrito()`), **total** (`actualizarTotalCarrito()`), **modificar cantidad** (+/− con `agregarCarrito`/`eliminarCarrito`), **eliminar ítem** al llegar a 0 (`splice(index, 1)`) y **checkout** (listener en `.boton-finalizar` que vacía el carrito). Pendiente pulir el checkout: usa `alert` (va a SweetAlert2 en Fase 4) y **no llama a `actualizarContadorCarrito()`**, así que el número del nav queda desactualizado
 - [x] **Manipulación del DOM** (render dinámico de datos/estados) → `cargarProductos()` genera las tarjetas del catálogo; `cargarCarrito()` renderiza los ítems del carrito; `actualizarContadorCarrito()` refresca el número; `actualizarTotalCarrito()` refresca el total
 - [x] **Eventos** que disparan las transiciones del flujo → `click` en botones de categoría (filtrar + mostrar catálogo), en `.boton-agregar` (sumar al carrito, re-enganchado con `actualizarBotones()` tras cada render) y en `.boton-carrito` (mostrar carrito + `cargarCarrito()`)
-- [~] Tratamiento de **casos comunes** y validaciones → resueltos: comparación de `id` (string vs string), **total ahora multiplica `precio * cantidad`**, e imagen (`imagen_url`) ya usada en `src`. Pendiente: control de **stock** (no dejar sumar más que el stock disponible) y estado de **carrito vacío** (mensaje cuando no hay ítems)
+- [~] Tratamiento de **casos comunes** y validaciones → resueltos: comparación de `id` (string vs string), **total multiplica `precio * cantidad`**, imagen (`imagen_url`) usada en `src`, **carrito vacío** (el checkout avisa con `Swal` en vez de "comprar" $0) y **contador del nav** actualizado tras finalizar la compra. Pendiente: control de **stock** (el campo `stock` de `juegos.json` hoy no se usa en ningún lado — se pueden agregar 50 copias de un juego con stock 3)
 - [ ] Persistencia de estado durante la sesión (si aplica a la temática) → pendiente: `localStorage` del carrito
 
 ### Fase 4 — Librería externa + limpieza
 - [x] Integrar **≥1 librería JS externa** con uso visible → SweetAlert2 v11 por CDN (`<script>` en `index.html` **antes** de `main.js`), usada en el checkout: confirmación Sí/No + aviso de éxito
 - [x] Reemplazar `alert` / `confirm` / `prompt` por UI propia o de la librería → el único `alert` (checkout) ya es `Swal.fire`
-- [ ] Eliminar **todos** los `console.*` → quedan 3: `main.js:27` (catch del fetch — reemplazar por un `Swal` de error, no borrarlo a secas), `main.js:117` y `main.js:131` (debug, borrar)
-- [ ] Verificar que no queden diálogos nativos en ningún flujo
+- [x] Eliminar **todos** los `console.*` → verificado por grep: 0 ocurrencias en `main.js`
+- [x] Verificar que no queden diálogos nativos en ningún flujo → verificado por grep: 0 `alert`/`confirm`/`prompt`. Los 4 usos de SweetAlert2 son: error de fetch, carrito vacío, confirmación de compra y aviso de éxito
 
 ### Fase 5 — Calidad de código
 - [ ] **Nombres descriptivos** (variables, funciones, archivos)

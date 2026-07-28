@@ -11,8 +11,8 @@ const productosCarrito = [];
 const contadorCarrito = document.querySelector(".carrito-numero");
 const numeroTotal = document.querySelector(".total-numero");
 const botonCarrito = document.querySelector(".boton-carrito");
-let botonCarritoSuma = document.querySelectorAll(".boton-sumar");
-let botonCarritoResta = document.querySelectorAll(".boton-restar");
+let botonesCarritoSuma = document.querySelectorAll(".boton-sumar");
+let botonesCarritoResta = document.querySelectorAll(".boton-restar");
 const botonFinalizar = document.querySelector(".boton-finalizar")
 
 async function traerDatos(){
@@ -108,13 +108,13 @@ function eliminarCarrito(e){
 
 function actualizarBotonesCarrito(){
     botonesCarritoSuma = document.querySelectorAll(".boton-sumar");
-    botonCarritoResta = document.querySelectorAll(".boton-restar");
+    botonesCarritoResta = document.querySelectorAll(".boton-restar");
 
     botonesCarritoSuma.forEach(boton => {
         boton.addEventListener("click", agregarCarrito);
     })
 
-    botonCarritoResta.forEach(boton => {
+    botonesCarritoResta.forEach(boton => {
         boton.addEventListener("click", eliminarCarrito);
     })
 }
@@ -172,7 +172,7 @@ botonFinalizar.addEventListener("click",(e)=>{
         Swal.fire({
             title: "Estas seguro?",
             icon: "info",
-            html: `Se van a borrar todos tus productos`,
+            text: `Se van a borrar todos tus productos`,
             showCloseButton: true,
             showCancelButton: true,
             focusConfirm: false,
@@ -185,7 +185,7 @@ botonFinalizar.addEventListener("click",(e)=>{
                 cargarCarrito();
                 actualizarContadorCarrito();
                 Swal.fire("Gracias por tu compra!", "", "success");
-            };
+            }
         });
         }
 })
