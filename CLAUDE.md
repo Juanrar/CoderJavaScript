@@ -95,16 +95,16 @@ de código. Reglas de colaboración:
 - [x] Manejo de **errores** de carga (qué pasa si el fetch falla) → `try/catch` implementado (pendiente: quitar los `console.log` y mostrar aviso al usuario en la UI, idealmente con SweetAlert2)
 
 ### Fase 3 — Lógica del negocio
-- [~] Implementar el **circuito completo** (de principio a fin) → hecho: catálogo, filtros, agregar al carrito, **render del carrito** (`cargarCarrito()`), **total** (`actualizarTotalCarrito()`), **modificar cantidad** (+/− con `agregarCarrito`/`eliminarCarrito`) y **eliminar ítem** al llegar a 0 (`splice(index, 1)`). **Falta solo el checkout**: el botón `.boton-finalizar` existe en el HTML pero no tiene listener
+- [x] Implementar el **circuito completo** (de principio a fin) → hecho: catálogo, filtros, agregar al carrito, **render del carrito** (`cargarCarrito()`), **total** (`actualizarTotalCarrito()`), **modificar cantidad** (+/− con `agregarCarrito`/`eliminarCarrito`), **eliminar ítem** al llegar a 0 (`splice(index, 1)`) y **checkout** (listener en `.boton-finalizar` que vacía el carrito). Pendiente pulir el checkout: usa `alert` (va a SweetAlert2 en Fase 4) y **no llama a `actualizarContadorCarrito()`**, así que el número del nav queda desactualizado
 - [x] **Manipulación del DOM** (render dinámico de datos/estados) → `cargarProductos()` genera las tarjetas del catálogo; `cargarCarrito()` renderiza los ítems del carrito; `actualizarContadorCarrito()` refresca el número; `actualizarTotalCarrito()` refresca el total
 - [x] **Eventos** que disparan las transiciones del flujo → `click` en botones de categoría (filtrar + mostrar catálogo), en `.boton-agregar` (sumar al carrito, re-enganchado con `actualizarBotones()` tras cada render) y en `.boton-carrito` (mostrar carrito + `cargarCarrito()`)
 - [~] Tratamiento de **casos comunes** y validaciones → resueltos: comparación de `id` (string vs string), **total ahora multiplica `precio * cantidad`**, e imagen (`imagen_url`) ya usada en `src`. Pendiente: control de **stock** (no dejar sumar más que el stock disponible) y estado de **carrito vacío** (mensaje cuando no hay ítems)
 - [ ] Persistencia de estado durante la sesión (si aplica a la temática) → pendiente: `localStorage` del carrito
 
 ### Fase 4 — Librería externa + limpieza
-- [ ] Integrar **≥1 librería JS externa** con uso visible
-- [ ] Reemplazar `alert` / `confirm` / `prompt` por UI propia o de la librería
-- [ ] Eliminar **todos** los `console.*`
+- [x] Integrar **≥1 librería JS externa** con uso visible → SweetAlert2 v11 por CDN (`<script>` en `index.html` **antes** de `main.js`), usada en el checkout: confirmación Sí/No + aviso de éxito
+- [x] Reemplazar `alert` / `confirm` / `prompt` por UI propia o de la librería → el único `alert` (checkout) ya es `Swal.fire`
+- [ ] Eliminar **todos** los `console.*` → quedan 3: `main.js:27` (catch del fetch — reemplazar por un `Swal` de error, no borrarlo a secas), `main.js:117` y `main.js:131` (debug, borrar)
 - [ ] Verificar que no queden diálogos nativos en ningún flujo
 
 ### Fase 5 — Calidad de código

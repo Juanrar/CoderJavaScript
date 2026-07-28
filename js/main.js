@@ -170,10 +170,23 @@ function actualizarTotalCarrito(){
 }
 
 botonFinalizar.addEventListener("click",(e)=>{
-    productosCarrito.length = 0;
-    actualizarTotalCarrito();
-    cargarCarrito();
-    alert("Compra finalizada wachin");
+    Swal.fire({
+        title: "Estas seguro?",
+        icon: "info",
+        html: `Se van a borrar todos tus productos`,
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText: `Si`,
+        cancelButtonText: `No`,
+    }).then((result) => {
+        if (result.isConfirmed){
+            productosCarrito.length = 0;
+            actualizarTotalCarrito();
+            cargarCarrito();
+            Swal.fire("Gracias por tu compra!", "", "success");
+        };
+    });
 })
 
 inicio();
