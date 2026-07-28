@@ -166,23 +166,33 @@ function actualizarTotalCarrito(){
 }
 
 botonFinalizar.addEventListener("click",(e)=>{
-    Swal.fire({
-        title: "Estas seguro?",
-        icon: "info",
-        html: `Se van a borrar todos tus productos`,
-        showCloseButton: true,
-        showCancelButton: true,
-        focusConfirm: false,
-        confirmButtonText: `Si`,
-        cancelButtonText: `No`,
-    }).then((result) => {
-        if (result.isConfirmed){
-            productosCarrito.length = 0;
-            actualizarTotalCarrito();
-            cargarCarrito();
-            Swal.fire("Gracias por tu compra!", "", "success");
-        };
-    });
+    let cantidadProductos = productosCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    if(cantidadProductos === 0 ){
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "No tienes ningun producto",
+        });
+    }else{
+        Swal.fire({
+            title: "Estas seguro?",
+            icon: "info",
+            html: `Se van a borrar todos tus productos`,
+            showCloseButton: true,
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText: `Si`,
+            cancelButtonText: `No`,
+        }).then((result) => {
+            if (result.isConfirmed){
+                productosCarrito.length = 0;
+                actualizarTotalCarrito();
+                cargarCarrito();
+                actualizarContadorCarrito();
+                Swal.fire("Gracias por tu compra!", "", "success");
+            };
+        });
+        }
 })
 
 inicio();
