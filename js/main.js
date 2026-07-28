@@ -15,7 +15,7 @@ let botonesCarritoSuma = document.querySelectorAll(".boton-sumar");
 let botonesCarritoResta = document.querySelectorAll(".boton-restar");
 const botonFinalizar = document.querySelector(".boton-finalizar")
 
-async function traerDatos(){
+async function traerJuegos(){
     try{
         const respuesta = await fetch("./data/juegos.json");
         const datos = await respuesta.json();
@@ -49,7 +49,7 @@ function cargarProductos(productosCategoria) {
 }
 
 async function inicio(){
-    await traerDatos();
+    await traerJuegos();
     cargarProductos(productos);
 }
 
@@ -91,13 +91,13 @@ function agregarAlCarrito(e){
     }
 }
 
-function eliminarCarrito(e){
+function restarDelCarrito(e){
     const idProducto = e.currentTarget.id;
-    const productoEliminado = productos.find(producto => producto.id === idProducto);
+    const juegoEnCatalogo = productos.find(producto => producto.id === idProducto);
     const index = productosCarrito.findIndex(producto => producto.id === idProducto);
     productosCarrito[index].cantidad--
-    if(productoEliminado.cantidad === 0){
-        delete productoEliminado.cantidad;
+    if(juegoEnCatalogo.cantidad === 0){
+        delete juegoEnCatalogo.cantidad;
         productosCarrito.splice(index, 1);
     }
     actualizarContadorCarrito()
@@ -115,7 +115,7 @@ function actualizarBotonesCarrito(){
     })
 
     botonesCarritoResta.forEach(boton => {
-        boton.addEventListener("click", eliminarCarrito);
+        boton.addEventListener("click", restarDelCarrito);
     })
 }
 
