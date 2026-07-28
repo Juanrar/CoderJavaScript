@@ -1,4 +1,3 @@
-// elementos de producto
 const contenedorCatalogo = document.querySelector("#contenedor-catalogo");
 const contenedorProductos = document.querySelector(".grilla-juegos");
 const botonesCategorias = document.querySelectorAll(".boton-categoria");
@@ -6,7 +5,6 @@ const tituloPrincipal = document.querySelector(".titulo-principal")
 let botonesAgregar = document.querySelectorAll(".boton-agregar")
 let productos = [];
 
-//elementos de carrito
 const contenedorCarrito = document.querySelector("#contenedor-carrito");
 const contenedorCompras = document.querySelector(".grilla-carrito")
 const productosCarrito = [];
@@ -17,21 +15,23 @@ let botonCarritoSuma = document.querySelectorAll(".boton-sumar");
 let botonCarritoResta = document.querySelectorAll(".boton-restar");
 const botonFinalizar = document.querySelector(".boton-finalizar")
 
-//Productos
 async function traerDatos(){
     try{
         const respuesta = await fetch("./data/juegos.json");
         const datos = await respuesta.json();
         productos =  datos;
     }catch(error){
-        productos = [];
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "no pudimos cargar los juegos, probá recargar la página",
+        });
     }
 }
 
 function cargarProductos(productosCategoria) {
     contenedorProductos.innerHTML = "";
     productosCategoria.forEach(producto =>{
-        // Vaciar el contenido
 
         const div = document.createElement("div");
         div.classList.add("producto");
@@ -71,7 +71,6 @@ function actualizarBotonesProducto(){
     botonesAgregar = document.querySelectorAll(".boton-agregar");
 
     botonesAgregar.forEach(boton => {
-        // Funcion que hace que los botones de agregar vayan al carrito
         boton.addEventListener("click", agregarCarrito);
     })
 }
@@ -80,11 +79,9 @@ function agregarCarrito(e){
     const idProducto = e.currentTarget.id;
     const productoAgregado = productos.find(producto => producto.id === idProducto);
     if(productosCarrito.some(producto => producto.id === idProducto)){
-        //si ya exista aumentar cantidad
         const index = productosCarrito.findIndex(producto => producto.id === idProducto);
         productosCarrito[index].cantidad++;
     } else{
-        //sino agregar
         productoAgregado.cantidad = 1;
         productosCarrito.push(productoAgregado);
     } 
@@ -108,7 +105,6 @@ function eliminarCarrito(e){
         cargarCarrito()
     }
 }
-//Carrito
 
 function actualizarBotonesCarrito(){
     botonesCarritoSuma = document.querySelectorAll(".boton-sumar");
@@ -138,7 +134,6 @@ function cargarCarrito() {
     contenedorProductos.innerHTML = "";
     contenedorCompras.innerHTML="";
     productosCarrito.forEach(producto =>{
-        // Vaciar el contenido
 
         const div = document.createElement("div");
         div.classList.add("carrito");
