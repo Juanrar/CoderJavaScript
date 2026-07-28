@@ -71,11 +71,11 @@ function actualizarBotonesProducto(){
     botonesAgregar = document.querySelectorAll(".boton-agregar");
 
     botonesAgregar.forEach(boton => {
-        boton.addEventListener("click", agregarCarrito);
+        boton.addEventListener("click", agregarAlCarrito);
     })
 }
 
-function agregarCarrito(e){
+function agregarAlCarrito(e){
     const idProducto = e.currentTarget.id;
     const productoAgregado = productos.find(producto => producto.id === idProducto);
     if(productosCarrito.some(producto => producto.id === idProducto)){
@@ -111,7 +111,7 @@ function actualizarBotonesCarrito(){
     botonesCarritoResta = document.querySelectorAll(".boton-restar");
 
     botonesCarritoSuma.forEach(boton => {
-        boton.addEventListener("click", agregarCarrito);
+        boton.addEventListener("click", agregarAlCarrito);
     })
 
     botonesCarritoResta.forEach(boton => {
