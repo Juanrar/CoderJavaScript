@@ -13,8 +13,9 @@ const productosCarrito = [];
 const contadorCarrito = document.querySelector(".carrito-numero");
 const numeroTotal = document.querySelector(".total-numero");
 const botonCarrito = document.querySelector(".boton-carrito");
-let botonCarritoSuma = document.querySelector(".boton-sumar");
-let botonCarritoResta = document.querySelector(".boton-restar");
+let botonCarritoSuma = document.querySelectorAll(".boton-sumar");
+let botonCarritoResta = document.querySelectorAll(".boton-restar");
+const botonFinalizar = document.querySelector(".boton-finalizar")
 
 //Productos
 async function traerDatos(){
@@ -167,5 +168,12 @@ function actualizarTotalCarrito(){
     let total = productosCarrito.reduce((acc, producto) => acc + (producto.precio * (producto.cantidad || 1)), 0);
     numeroTotal.innerText = new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(total);
 }
+
+botonFinalizar.addEventListener("click",(e)=>{
+    productosCarrito.length = 0;
+    actualizarTotalCarrito();
+    cargarCarrito();
+    alert("Compra finalizada wachin");
+})
 
 inicio();
