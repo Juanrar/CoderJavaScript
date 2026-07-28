@@ -99,7 +99,7 @@ de código. Reglas de colaboración:
 - [x] **Manipulación del DOM** (render dinámico de datos/estados) → `cargarProductos()` genera las tarjetas del catálogo; `cargarCarrito()` renderiza los ítems del carrito; `actualizarContadorCarrito()` refresca el número; `actualizarTotalCarrito()` refresca el total
 - [x] **Eventos** que disparan las transiciones del flujo → `click` en botones de categoría (filtrar + mostrar catálogo), en `.boton-agregar` (sumar al carrito, re-enganchado con `actualizarBotones()` tras cada render) y en `.boton-carrito` (mostrar carrito + `cargarCarrito()`)
 - [~] Tratamiento de **casos comunes** y validaciones → resueltos: comparación de `id` (string vs string), **total multiplica `precio * cantidad`**, imagen (`imagen_url`) usada en `src`, **carrito vacío** (el checkout avisa con `Swal` en vez de "comprar" $0) y **contador del nav** actualizado tras finalizar la compra. Pendiente: control de **stock** (el campo `stock` de `juegos.json` hoy no se usa en ningún lado — se pueden agregar 50 copias de un juego con stock 3)
-- [ ] Persistencia de estado durante la sesión (si aplica a la temática) → pendiente: `localStorage` del carrito
+- [ ] Persistencia de estado durante la sesión (si aplica a la temática) → pendiente: `localStorage` del carrito. **BLOQUEANTE — arreglar antes:** `productosCarrito` guarda **la misma referencia** de objeto que `productos` (línea 86, `push(productoAgregado)` sin copiar). Hoy funciona por accidente; al rehidratar con `JSON.parse` los objetos son nuevos y `restarDelCarrito` (línea 99) va a leer `cantidad` del catálogo → `undefined === 0` → el `splice` nunca corre y se puede restar hasta negativo. Corregir la línea 99 para leer del carrito. Relacionado: el `|| 1` de la línea 159 es un parche que enmascara `cantidad` indefinida (y convierte un `0` legítimo en `1`)
 
 ### Fase 4 — Librería externa + limpieza
 - [x] Integrar **≥1 librería JS externa** con uso visible → SweetAlert2 v11 por CDN (`<script>` en `index.html` **antes** de `main.js`), usada en el checkout: confirmación Sí/No + aviso de éxito
@@ -108,7 +108,7 @@ de código. Reglas de colaboración:
 - [x] Verificar que no queden diálogos nativos en ningún flujo → verificado por grep: 0 `alert`/`confirm`/`prompt`. Los 4 usos de SweetAlert2 son: error de fetch, carrito vacío, confirmación de compra y aviso de éxito
 
 ### Fase 5 — Calidad de código
-- [ ] **Nombres descriptivos** (variables, funciones, archivos)
+- [~] **Nombres descriptivos** (variables, funciones, archivos) → hecho: arreglada la global implícita (`botonesCarritoSuma`/`botonesCarritoResta` ahora coinciden declaración y uso) y renombradas las 4 funciones/variables que mentían: `agregarCarrito`→`agregarAlCarrito`, `eliminarCarrito`→`restarDelCarrito`, `traerDatos`→`traerJuegos`, `productoEliminado`→`juegoEnCatalogo`. Pendiente: el choque `contenedorCatalogo`/`contenedorCarrito` (secciones) vs `contenedorProductos`/`contenedorCompras` (grillas); `numeroTotal`; los `div` genéricos (36, 138); `productos` vs dominio "juegos"; `index` (único nombre en inglés)
 - [ ] **Comentarios breves** donde aporten claridad
 - [ ] **Sin** código comentado / en desuso
 - [ ] Estructura y modularización claras para la corrección
