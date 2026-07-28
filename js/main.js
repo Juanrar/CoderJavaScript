@@ -13,8 +13,10 @@ const productosCarrito = [];
 const contadorCarrito = document.querySelector(".carrito-numero");
 const numeroTotal = document.querySelector(".total-numero");
 const botonCarrito = document.querySelector(".boton-carrito");
+let botonCarritoSuma = document.querySelector(".boton-sumar");
+let botonCarritoResta = document.querySelector(".boton-restar");
 
-
+//Productos
 async function traerDatos(){
     try{
         const respuesta = await fetch("./data/juegos.json");
@@ -34,7 +36,7 @@ function cargarProductos(productosCategoria) {
         const div = document.createElement("div");
         div.classList.add("producto");
         div.innerHTML= `
-            <img class="producto-imagen">
+            <img class="producto-imagen" src="${producto.imagen_url}" alt="${producto.titulo}">
                 <div class="producto-detalles">
                     <h3 class="producto-titulo">${producto.titulo}</h3>
                     <p class="producto-precio">${new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(producto.precio)}</p>
@@ -43,7 +45,7 @@ function cargarProductos(productosCategoria) {
         `;
         contenedorProductos.append(div);
     })
-    actualizarBotones();
+    actualizarBotonesProducto();
 }
 
 async function inicio(){
@@ -65,16 +67,16 @@ botonesCategorias.forEach(boton =>{
     })
 })
 
-function actualizarBotones(){
+function actualizarBotonesProducto(){
     botonesAgregar = document.querySelectorAll(".boton-agregar");
 
     botonesAgregar.forEach(boton => {
         // Funcion que hace que los botones de agregar vayan al carrito
-        boton.addEventListener("click", agregarAlCarrito);
+        boton.addEventListener("click", agregarCarrito);
     })
 }
 
-function agregarAlCarrito(e){
+function agregarCarrito(e){
     const idProducto = e.currentTarget.id;
     const productoAgregado = productos.find(producto => producto.id === idProducto);
     if(productosCarrito.some(producto => producto.id === idProducto)){
@@ -87,7 +89,41 @@ function agregarAlCarrito(e){
         productosCarrito.push(productoAgregado);
     } 
     actualizarContadorCarrito()
-    console.log(productosCarrito)
+    if(contenedorCatalogo.classList.contains("oculta")){
+        cargarCarrito()
+    }
+}
+
+function eliminarCarrito(e){
+    const idProducto = e.currentTarget.id;
+    const productoEliminado = productos.find(producto => producto.id === idProducto);
+    if(!productosCarrito.some(producto => producto.id === idProducto)){
+        delete productoEliminado.cantidad;
+        productosCarrito.pop(productoEliminado);
+    } else{
+        const index = productosCarrito.findIndex(producto => producto.id === idProducto);
+        productosCarrito[index].cantidad--;
+    } 
+    actualizarContadorCarrito()
+    if(contenedorCatalogo.classList.contains("oculta")){
+        cargarCarrito()
+    }
+}
+//Carrito
+
+function actualizarBotonesCarrito(){
+    botonesCarritoSuma = document.querySelectorAll(".boton-sumar");
+    botonCarritoResta = document.querySelectorAll(".boton-restar");
+    console.log("botoncitos:",botonCarritoResta);
+
+
+    botonesCarritoSuma.forEach(boton => {
+        boton.addEventListener("click", agregarCarrito);
+    })
+
+    botonCarritoResta.forEach(boton => {
+        boton.addEventListener("click", eliminarCarrito);
+    })
 }
 
 function actualizarContadorCarrito(){
@@ -109,21 +145,27 @@ function cargarCarrito() {
         // Vaciar el contenido
 
         const div = document.createElement("div");
-        div.classList.add("producto");
+        div.classList.add("carrito");
         div.innerHTML= `
-            <img class="producto-imagen">
-                <div class="producto-detalles">
-                    <h3 class="producto-titulo">${producto.titulo}</h3>
-                    <p class="producto-precio">${new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(producto.precio)}</p>
+            <img class="carrito-imagen" src="${producto.imagen_url}" alt="${producto.titulo}">
+                <div class="carrito-detalles">
+                    <h3 class="carrito-titulo">${producto.titulo}</h3>
+                    <p class="carrito-precio">${new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(producto.precio)}</p>
+                    <div class="carrito-control-cantidad">
+                        <button class="boton-restar" id="${producto.id}">−</button>
+                        <span class="carrito-cantidad">${producto.cantidad}</span>
+                        <button class="boton-sumar" id="${producto.id}">+</button>
+                    </div>
                 </div>
         `;
         contenedorCompras.append(div);
         actualizarTotalCarrito();
+        actualizarBotonesCarrito();
     })
 }
 
 function actualizarTotalCarrito(){
-    let total = productosCarrito.reduce((acc, producto) => acc + producto.precio, 0);
+    let total = productosCarrito.reduce((acc, producto) => acc + (producto.precio * (producto.cantidad || 1)), 0);
     numeroTotal.innerText = new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(total);
 }
 
