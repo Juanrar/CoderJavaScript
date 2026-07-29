@@ -57,6 +57,9 @@ header{
 .boton-agregar{
     cursor: pointer;
 }
+.boton-agregar:disabled{
+    cursor: default;
+}
 
 .boton-categoria:hover {
     color: #f5a623;

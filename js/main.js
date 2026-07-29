@@ -32,15 +32,16 @@ async function traerJuegos(){
 function cargarProductos(productosCategoria) {
     contenedorProductos.innerHTML = "";
     productosCategoria.forEach(producto =>{
-
+        const agotado = producto.stock === 0;
         const div = document.createElement("div");
         div.classList.add("producto");
         div.innerHTML= `
             <img class="producto-imagen" src="${producto.imagen_url}" alt="${producto.titulo}">
                 <div class="producto-detalles">
                     <h3 class="producto-titulo">${producto.titulo}</h3>
+                    ${ agotado ? "" : `<p class="producto-stock">Quedan ${producto.stock}</p>`}
                     <p class="producto-precio">${new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(producto.precio)}</p>
-                    <button class="boton-agregar" id="${producto.id}">Agregar</button>
+                    <button class="boton-agregar" ${ agotado ? "disabled" : ""} id="${producto.id}">${ agotado ? "Sin stock" : "Agregar"}</button>
                 </div>
         `;
         contenedorProductos.append(div);
@@ -204,7 +205,6 @@ function finalizarCompra(){
     })
     productosCarrito.length = 0;
     actualizarTotalCarrito();
-    cargarCarrito();
     actualizarContadorCarrito();
 }
 
