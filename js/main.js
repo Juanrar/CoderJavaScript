@@ -71,14 +71,14 @@ function agregarAlCarrito(e){
     const idProducto = e.currentTarget.id;
     const productoAgregado = productos.find(producto => producto.id === idProducto);
     const index = productosCarrito.findIndex(producto => producto.id === idProducto);
-    const cantidadActual = index !== null ? productosCarrito[index].cantidad : 0;
+    const cantidadActual = index !== -1 ? productosCarrito[index].cantidad : 0;
 
     if (cantidadActual >= productoAgregado.stock){
         Swal.fire({ icon: "warning", title: "Stock insuficiente" });
         return;
     }
 
-    if(index !== null){
+    if(index !== -1){
         productosCarrito[index].cantidad++;
     } else{
         productosCarrito.push({
