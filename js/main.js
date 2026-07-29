@@ -52,6 +52,7 @@ function cargarProductos(productosCategoria) {
 async function inicio(){
     await traerJuegos();
     cargarProductos(productos);
+    restaurarCarrito();
 }
 
 botonesCategorias.forEach(boton =>{
@@ -102,6 +103,7 @@ function agregarAlCarrito(e){
     if(contenedorCatalogo.classList.contains("oculta")){
         cargarCarrito()
     }
+    guardarCarrito();
 }
 
 function restarDelCarrito(e){
@@ -115,6 +117,7 @@ function restarDelCarrito(e){
     if(contenedorCatalogo.classList.contains("oculta")){
         cargarCarrito()
     }
+    guardarCarrito()
 }
 
 function actualizarBotonesCarrito(){
@@ -171,6 +174,18 @@ function actualizarTotalCarrito(){
     numeroTotal.innerText = new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(total);
 }
 
+function guardarCarrito(){
+    localStorage.setItem("carrito",JSON.stringify(productosCarrito))
+}
+
+function restaurarCarrito(){
+    const guardado =  localStorage.getItem("carrito");
+    if(guardado !== -1){
+        return
+    }
+    const productos = JSON.parse(guardado);
+}
+
 botonFinalizar.addEventListener("click",(e)=>{
     let cantidadProductos = productosCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
     if(cantidadProductos === 0 ){
@@ -198,12 +213,13 @@ botonFinalizar.addEventListener("click",(e)=>{
         }
 })
 
-function finalizarCompra(){
+function finalizarCompra(){ 
     productosCarrito.forEach(producto => {
         let productoDescontado = productos.find(productoStock => productoStock.id === producto.id);
         productoDescontado.stock -= producto.cantidad;
     })
     productosCarrito.length = 0;
+    localStorage.setItem("carrito",JSON.stringify("0"))
     actualizarTotalCarrito();
     actualizarContadorCarrito();
 }
