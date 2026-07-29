@@ -38,13 +38,17 @@ function cargarProductos(productosCategoria) {
                 <div class="producto-detalles">
                     <h3 class="producto-titulo">${producto.titulo}</h3>
                     ${ agotado ? "" : `<p class="producto-stock">Quedan ${producto.stock}</p>`}
-                    <p class="producto-precio">${new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(producto.precio)}</p>
+                    <p class="producto-precio">${formatearPrecio(producto.precio)}</p>
                     <button class="boton-agregar" ${ agotado ? "disabled" : ""} id="${producto.id}">${ agotado ? "Sin stock" : "Agregar"}</button>
                 </div>
         `;
         contenedorProductos.append(div);
     })
     actualizarBotonesProducto();
+}
+
+function formatearPrecio(precio){
+    return new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(precio)
 }
 
 async function inicio(){
@@ -142,7 +146,7 @@ function cargarCarrito() {
             <img class="carrito-imagen" src="${producto.imagen_url}" alt="${producto.titulo}">
                 <div class="carrito-detalles">
                     <h3 class="carrito-titulo">${producto.titulo}</h3>
-                    <p class="carrito-precio">${new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(producto.precio)}</p>
+                    <p class="carrito-precio">${formatearPrecio(producto.precio)}</p>
                     <div class="carrito-control-cantidad">
                         <button class="boton-restar" id="${producto.id}">−</button>
                         <span class="carrito-cantidad">${producto.cantidad}</span>
@@ -158,7 +162,7 @@ function cargarCarrito() {
 
 function actualizarTotalCarrito(){
     let total = productosCarrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0);
-    numeroTotal.innerText = new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(total);
+    numeroTotal.innerText = formatearPrecio(total);
 }
 
 function guardarCarrito(){
