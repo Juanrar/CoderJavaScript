@@ -7,7 +7,7 @@ let productos = [];
 
 const contenedorCarrito = document.querySelector("#contenedor-carrito");
 const contenedorCompras = document.querySelector(".grilla-carrito")
-const productosCarrito = [];
+let productosCarrito = [];
 const contadorCarrito = document.querySelector(".carrito-numero");
 const numeroTotal = document.querySelector(".total-numero");
 const botonCarrito = document.querySelector(".boton-carrito");
@@ -71,14 +71,14 @@ function agregarAlCarrito(e){
     const idProducto = e.currentTarget.id;
     const productoAgregado = productos.find(producto => producto.id === idProducto);
     const index = productosCarrito.findIndex(producto => producto.id === idProducto);
-    const cantidadActual = index !== -1 ? productosCarrito[index].cantidad : 0;
+    const cantidadActual = index !== null ? productosCarrito[index].cantidad : 0;
 
     if (cantidadActual >= productoAgregado.stock){
         Swal.fire({ icon: "warning", title: "Stock insuficiente" });
         return;
     }
 
-    if(index !== -1){
+    if(index !== null){
         productosCarrito[index].cantidad++;
     } else{
         productosCarrito.push({
@@ -169,10 +169,12 @@ function guardarCarrito(){
 
 function restaurarCarrito(){
     const guardado =  localStorage.getItem("carrito");
-    if(guardado !== -1){
+    if(guardado === null){
         return
     }
-    const productos = JSON.parse(guardado);
+    const carritoGuardado = JSON.parse(guardado);
+    productosCarrito.push(...carritoGuardado);
+    actualizarContadorCarrito();
 }
 
 botonFinalizar.addEventListener("click",(e)=>{
@@ -208,7 +210,6 @@ function finalizarCompra(){
         productoDescontado.stock -= producto.cantidad;
     })
     productosCarrito.length = 0;
-    localStorage.setItem("carrito",JSON.stringify("0"))
     guardarCarrito();
     actualizarContadorCarrito();
     cargarCarrito()
