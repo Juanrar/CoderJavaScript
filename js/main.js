@@ -2,7 +2,7 @@ const contenedorCatalogo = document.querySelector("#contenedor-catalogo");
 const contenedorProductos = document.querySelector(".grilla-juegos");
 const botonesCategorias = document.querySelectorAll(".boton-categoria");
 const tituloPrincipal = document.querySelector(".titulo-principal")
-let botonesAgregar = document.querySelectorAll(".boton-agregar")
+
 let productos = [];
 
 const contenedorCarrito = document.querySelector("#contenedor-carrito");
@@ -11,8 +11,6 @@ const productosCarrito = [];
 const contadorCarrito = document.querySelector(".carrito-numero");
 const numeroTotal = document.querySelector(".total-numero");
 const botonCarrito = document.querySelector(".boton-carrito");
-let botonesCarritoSuma = document.querySelectorAll(".boton-sumar");
-let botonesCarritoResta = document.querySelectorAll(".boton-restar");
 const botonFinalizar = document.querySelector(".boton-finalizar")
 
 async function traerJuegos(){
@@ -60,7 +58,7 @@ botonesCategorias.forEach(boton =>{
 })
 
 function actualizarBotonesProducto(){
-    botonesAgregar = document.querySelectorAll(".boton-agregar");
+    const botonesAgregar = document.querySelectorAll(".boton-agregar");
 
     botonesAgregar.forEach(boton => {
         boton.addEventListener("click", agregarAlCarrito);
@@ -111,8 +109,8 @@ function restarDelCarrito(e){
 }
 
 function actualizarBotonesCarrito(){
-    botonesCarritoSuma = document.querySelectorAll(".boton-sumar");
-    botonesCarritoResta = document.querySelectorAll(".boton-restar");
+    const botonesCarritoSuma = document.querySelectorAll(".boton-sumar");
+    const botonesCarritoResta = document.querySelectorAll(".boton-restar");
 
     botonesCarritoSuma.forEach(boton => {
         boton.addEventListener("click", agregarAlCarrito);
