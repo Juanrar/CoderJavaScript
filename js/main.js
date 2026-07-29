@@ -190,14 +190,22 @@ botonFinalizar.addEventListener("click",(e)=>{
             cancelButtonText: `No`,
         }).then((result) => {
             if (result.isConfirmed){
-                productosCarrito.length = 0;
-                actualizarTotalCarrito();
-                cargarCarrito();
-                actualizarContadorCarrito();
+                finalizarCompra()
                 Swal.fire("Gracias por tu compra!", "", "success");
             }
         });
         }
 })
+
+function finalizarCompra(){
+    productosCarrito.forEach(producto => {
+        let productoDescontado = productos.find(productoStock => productoStock.id === producto.id);
+        productoDescontado.stock -= producto.cantidad;
+    })
+    productosCarrito.length = 0;
+    actualizarTotalCarrito();
+    cargarCarrito();
+    actualizarContadorCarrito();
+}
 
 inicio();
