@@ -7,7 +7,7 @@ let productos = [];
 
 const contenedorCarrito = document.querySelector("#contenedor-carrito");
 const contenedorCompras = document.querySelector(".grilla-carrito")
-let productosCarrito = [];
+const productosCarrito = [];
 const contadorCarrito = document.querySelector(".carrito-numero");
 const numeroTotal = document.querySelector(".total-numero");
 const botonCarrito = document.querySelector(".boton-carrito");
