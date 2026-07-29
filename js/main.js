@@ -78,13 +78,24 @@ function actualizarBotonesProducto(){
 function agregarAlCarrito(e){
     const idProducto = e.currentTarget.id;
     const productoAgregado = productos.find(producto => producto.id === idProducto);
-    if(productosCarrito.some(producto => producto.id === idProducto)){
-        const index = productosCarrito.findIndex(producto => producto.id === idProducto);
+    const index = productosCarrito.findIndex(producto => producto.id === idProducto);
+    const cantidadActual = index !== -1 ? productosCarrito[index].cantidad : 0;
+
+    if (cantidadActual >= productoAgregado.stock){
+        Swal.fire({ icon: "warning", title: "Stock insuficiente" });
+        return;
+    }
+
+    if(index !== -1){
         productosCarrito[index].cantidad++;
     } else{
-        const itemCarrito = {...productoAgregado}
-        itemCarrito.cantidad = 1;
-        productosCarrito.push(itemCarrito);
+        productosCarrito.push({
+            id: productoAgregado.id,
+            titulo: productoAgregado.titulo,
+            imagen_url: productoAgregado.imagen_url,
+            precio: productoAgregado.precio,
+            cantidad: 1
+        });
     } 
     actualizarContadorCarrito()
     if(contenedorCatalogo.classList.contains("oculta")){
@@ -155,7 +166,7 @@ function cargarCarrito() {
 }
 
 function actualizarTotalCarrito(){
-    let total = productosCarrito.reduce((acc, producto) => acc + (producto.precio * (producto.cantidad || 1)), 0);
+    let total = productosCarrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0);
     numeroTotal.innerText = new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(total);
 }
 
