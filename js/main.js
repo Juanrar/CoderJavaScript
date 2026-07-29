@@ -56,17 +56,7 @@ async function inicio(){
 }
 
 botonesCategorias.forEach(boton =>{
-    boton.addEventListener("click",(e) =>{
-        if (contenedorCatalogo.classList.contains("oculta")){
-            contenedorCarrito.classList.add("oculta");
-            contenedorCatalogo.classList.remove("oculta");
-        }
-
-        let categoria = e.target.dataset.categoria;
-        tituloPrincipal.innerText = categoria != "Todos" ? categoria : "Todos los juegos";
-        let productosCategoria = productos.filter(producto => producto.categorias === categoria || categoria === 'Todos');
-        cargarProductos(productosCategoria);
-    })
+    boton.addEventListener("click",(e) => mostrarCatalogo(e.target.dataset.categoria))
 })
 
 function actualizarBotonesProducto(){
@@ -145,7 +135,6 @@ botonCarrito.addEventListener("click",(e) =>{
 })
 
 function cargarCarrito() {
-    contenedorProductos.innerHTML = "";
     contenedorCompras.innerHTML="";
     productosCarrito.forEach(producto =>{
 
@@ -220,8 +209,21 @@ function finalizarCompra(){
     })
     productosCarrito.length = 0;
     localStorage.setItem("carrito",JSON.stringify("0"))
-    actualizarTotalCarrito();
+    guardarCarrito();
     actualizarContadorCarrito();
+    cargarCarrito()
+    mostrarCatalogo()
+}
+
+function mostrarCatalogo(categoria = "Todos"){
+    if (contenedorCatalogo.classList.contains("oculta")){
+        contenedorCarrito.classList.add("oculta");
+        contenedorCatalogo.classList.remove("oculta");
+    }
+
+    tituloPrincipal.innerText = categoria != "Todos" ? categoria : "Todos los juegos";
+    let productosCategoria = productos.filter(producto => producto.categorias === categoria || categoria === 'Todos');
+    cargarProductos(productosCategoria);
 }
 
 inicio();
