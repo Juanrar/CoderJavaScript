@@ -127,7 +127,7 @@ function actualizarBotonesCarrito(){
 }
 
 function actualizarContadorCarrito(){
-    let cantidadTotal = productosCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    const cantidadTotal = productosCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
     contadorCarrito.innerText = cantidadTotal;
 }
 
@@ -162,7 +162,7 @@ function cargarCarrito() {
 }
 
 function actualizarTotalCarrito(){
-    let total = productosCarrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0);
+    const total = productosCarrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0);
     totalCarrito.innerText = formatearPrecio(total);
 }
 
@@ -181,7 +181,7 @@ function restaurarCarrito(){
 }
 
 botonFinalizar.addEventListener("click",(e)=>{
-    let cantidadProductos = productosCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    const cantidadProductos = productosCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
     if(cantidadProductos === 0 ){
         Swal.fire({
             icon: "error",
@@ -210,7 +210,7 @@ botonFinalizar.addEventListener("click",(e)=>{
 function finalizarCompra(){ 
     //descontar el stock cuando se termina la compra porque se pierde el stock del carrito al recargar la pagina
     productosCarrito.forEach(producto => {
-        let juegoEnCatalogo = productos.find(juego => juego.id === producto.id);
+        const juegoEnCatalogo = productos.find(juego => juego.id === producto.id);
         juegoEnCatalogo.stock -= producto.cantidad;
     })
     productosCarrito.length = 0;
@@ -227,7 +227,7 @@ function mostrarCatalogo(categoria = "Todos"){
     }
 
     tituloPrincipal.innerText = categoria != "Todos" ? categoria : "Todos los juegos";
-    let productosCategoria = productos.filter(producto => producto.categorias === categoria || categoria === 'Todos');
+    const productosCategoria = productos.filter(producto => producto.categorias === categoria || categoria === 'Todos');
     cargarProductos(productosCategoria);
 }
 
