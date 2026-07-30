@@ -1,15 +1,15 @@
-const contenedorCatalogo = document.querySelector("#contenedor-catalogo");
-const contenedorProductos = document.querySelector(".grilla-juegos");
+const seccionCatalogo = document.querySelector("#contenedor-catalogo");
+const grillaJuegos = document.querySelector(".grilla-juegos");
 const botonesCategorias = document.querySelectorAll(".boton-categoria");
 const tituloPrincipal = document.querySelector(".titulo-principal")
 
 let productos = [];
 
-const contenedorCarrito = document.querySelector("#contenedor-carrito");
-const contenedorCompras = document.querySelector(".grilla-carrito")
+const seccionCarrito = document.querySelector("#contenedor-carrito");
+const grillaCarrito = document.querySelector(".grilla-carrito")
 const productosCarrito = [];
 const contadorCarrito = document.querySelector(".carrito-numero");
-const numeroTotal = document.querySelector(".total-numero");
+const totalCarrito = document.querySelector(".total-numero");
 const botonCarrito = document.querySelector(".boton-carrito");
 const botonFinalizar = document.querySelector(".boton-finalizar")
 
@@ -28,12 +28,12 @@ async function traerJuegos(){
 }
 
 function cargarProductos(productosCategoria) {
-    contenedorProductos.innerHTML = "";
+    grillaJuegos.innerHTML = "";
     productosCategoria.forEach(producto =>{
         const agotado = producto.stock === 0;
-        const div = document.createElement("div");
-        div.classList.add("producto");
-        div.innerHTML= `
+        const tarjetaJuego = document.createElement("div");
+        tarjetaJuego.classList.add("producto");
+        tarjetaJuego.innerHTML= `
             <img class="producto-imagen" src="${producto.imagen_url}" alt="${producto.titulo}">
                 <div class="producto-detalles">
                     <h3 class="producto-titulo">${producto.titulo}</h3>
@@ -42,7 +42,7 @@ function cargarProductos(productosCategoria) {
                     <button class="boton-agregar" ${ agotado ? "disabled" : ""} id="${producto.id}">${ agotado ? "Sin stock" : "Agregar"}</button>
                 </div>
         `;
-        contenedorProductos.append(div);
+        grillaJuegos.append(tarjetaJuego);
     })
     actualizarBotonesProducto();
 }
@@ -70,18 +70,19 @@ function actualizarBotonesProducto(){
 }
 
 function agregarAlCarrito(e){
+    //el carrito y el catálogo tienen que ser estados independientes, porque cantidad es información del carrito y porque el carrito se serializa a localStorage.
     const idProducto = e.currentTarget.id;
     const productoAgregado = productos.find(producto => producto.id === idProducto);
-    const index = productosCarrito.findIndex(producto => producto.id === idProducto);
-    const cantidadActual = index !== -1 ? productosCarrito[index].cantidad : 0;
+    const indice = productosCarrito.findIndex(producto => producto.id === idProducto);
+    const cantidadActual = indice !== -1 ? productosCarrito[indice].cantidad : 0;
 
     if (cantidadActual >= productoAgregado.stock){
         Swal.fire({ icon: "warning", title: "Stock insuficiente" });
         return;
     }
 
-    if(index !== -1){
-        productosCarrito[index].cantidad++;
+    if(indice !== -1){
+        productosCarrito[indice].cantidad++;
     } else{
         productosCarrito.push({
             id: productoAgregado.id,
@@ -92,7 +93,7 @@ function agregarAlCarrito(e){
         });
     } 
     actualizarContadorCarrito()
-    if(contenedorCatalogo.classList.contains("oculta")){
+    if(seccionCatalogo.classList.contains("oculta")){
         cargarCarrito()
     }
     guardarCarrito();
@@ -100,13 +101,13 @@ function agregarAlCarrito(e){
 
 function restarDelCarrito(e){
     const idProducto = e.currentTarget.id;
-    const index = productosCarrito.findIndex(producto => producto.id === idProducto);
-    productosCarrito[index].cantidad--;
-    if(productosCarrito[index].cantidad === 0){
-        productosCarrito.splice(index, 1);
+    const indice = productosCarrito.findIndex(producto => producto.id === idProducto);
+    productosCarrito[indice].cantidad--;
+    if(productosCarrito[indice].cantidad === 0){
+        productosCarrito.splice(indice, 1);
     }
     actualizarContadorCarrito()
-    if(contenedorCatalogo.classList.contains("oculta")){
+    if(seccionCatalogo.classList.contains("oculta")){
         cargarCarrito()
     }
     guardarCarrito()
@@ -126,23 +127,23 @@ function actualizarBotonesCarrito(){
 }
 
 function actualizarContadorCarrito(){
-    let contador = productosCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
-    contadorCarrito.innerText = contador;
+    let cantidadTotal = productosCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    contadorCarrito.innerText = cantidadTotal;
 }
 
 botonCarrito.addEventListener("click",(e) =>{
-    contenedorCarrito.classList.remove("oculta");
-    contenedorCatalogo.classList.add("oculta");
+    seccionCarrito.classList.remove("oculta");
+    seccionCatalogo.classList.add("oculta");
     cargarCarrito();
 })
 
 function cargarCarrito() {
-    contenedorCompras.innerHTML="";
+    grillaCarrito.innerHTML="";
     productosCarrito.forEach(producto =>{
 
-        const div = document.createElement("div");
-        div.classList.add("carrito");
-        div.innerHTML= `
+        const itemCarrito = document.createElement("div");
+        itemCarrito.classList.add("carrito");
+        itemCarrito.innerHTML= `
             <img class="carrito-imagen" src="${producto.imagen_url}" alt="${producto.titulo}">
                 <div class="carrito-detalles">
                     <h3 class="carrito-titulo">${producto.titulo}</h3>
@@ -154,7 +155,7 @@ function cargarCarrito() {
                     </div>
                 </div>
         `;
-        contenedorCompras.append(div);
+        grillaCarrito.append(itemCarrito);
     });
     actualizarTotalCarrito();
     actualizarBotonesCarrito();
@@ -162,7 +163,7 @@ function cargarCarrito() {
 
 function actualizarTotalCarrito(){
     let total = productosCarrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0);
-    numeroTotal.innerText = formatearPrecio(total);
+    totalCarrito.innerText = formatearPrecio(total);
 }
 
 function guardarCarrito(){
@@ -207,9 +208,10 @@ botonFinalizar.addEventListener("click",(e)=>{
 })
 
 function finalizarCompra(){ 
+    //descontar el stock cuando se termina la compra porque se pierde el stock del carrito al recargar la pagina
     productosCarrito.forEach(producto => {
-        let productoDescontado = productos.find(productoStock => productoStock.id === producto.id);
-        productoDescontado.stock -= producto.cantidad;
+        let juegoEnCatalogo = productos.find(juego => juego.id === producto.id);
+        juegoEnCatalogo.stock -= producto.cantidad;
     })
     productosCarrito.length = 0;
     guardarCarrito();
@@ -219,9 +221,9 @@ function finalizarCompra(){
 }
 
 function mostrarCatalogo(categoria = "Todos"){
-    if (contenedorCatalogo.classList.contains("oculta")){
-        contenedorCarrito.classList.add("oculta");
-        contenedorCatalogo.classList.remove("oculta");
+    if (seccionCatalogo.classList.contains("oculta")){
+        seccionCarrito.classList.add("oculta");
+        seccionCatalogo.classList.remove("oculta");
     }
 
     tituloPrincipal.innerText = categoria != "Todos" ? categoria : "Todos los juegos";
